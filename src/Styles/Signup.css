@@ -100,8 +100,14 @@
         font-size: 30px;
     }
 
-    .signup-form {
-        background-color: #ffffff;
+    .signup-name-fields,
+    .signup-contact-fields,
+    .signup-password-fields {
+        display: block;
+    }
+
+    .signup-input {
+        width: 100% !important;
     }
 
     .signup-input {
