@@ -1,0 +1,134 @@
+/* General Form Styles */
+.login-form {
+    background-color: #FFFFFF;
+    height: 100vh;
+}
+
+/* Image Section */
+.divImg {
+    height: 775px;
+}
+
+.login-img {
+    height: 100%;
+    width: 100%;
+}
+
+/* Form Column */
+.login-form-col {
+    margin-top: 102px !important;
+    display: flex;
+    justify-content: center;
+}
+
+.login-form-wrapper {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Title */
+.login-title h2 {
+    font-size: 40px;
+}
+
+
+.input-group-email{
+    margin-top: 46px;
+}
+
+.input-group-password{
+    margin-top: 29px;
+}
+
+.input-group label {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 14px;
+}
+
+.login-input {
+    width: 349px;
+    height: 36px;
+    border-radius: 5px;
+    border: 1px solid #D9D9D9;
+    padding: 10px;
+}
+
+/* Forgot Password Link */
+.forgot-password-link {
+    margin-top: 30px;
+}
+
+.forgot-password-link a {
+    color: #000000;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Login Button */
+.login-btn-container {
+    margin-top: 28px;
+}
+
+.login-btn {
+    width: 107px;
+    height: 36px;
+    border: none;
+    border-radius: 5px;
+    background-color: #125A7A;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+/* OR Divider */
+.login-or-divider {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.login-or-divider span {
+    font-family: "Istok Web", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* Footer */
+.login-footer {
+    margin-top: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signup-btn {
+    width: 150px;
+    height: 36px;
+    border: none;
+    border-radius: 5px;
+    background-color: #125A7A;
+    color: #FFFFFF;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.signup-link {
+    text-decoration: none;
+    color: white;
+}
+
+.no-account-link {
+    text-decoration: none;
+    color: #000000;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Placeholder */
+.custom-placeholder::placeholder {
+    color: #A88F7F !important;
+}

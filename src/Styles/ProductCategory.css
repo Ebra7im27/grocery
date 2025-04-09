@@ -1,0 +1,43 @@
+section .selectcat .info {
+    margin-top: 39px;
+    gap: 20px;
+}
+
+section .selectcat .info .line {
+    border: 2px solid #125A7A;
+    height: 49px;
+}
+
+section .selectcat .info .title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #253D4E;
+}
+
+
+section .selectcat .categories {
+    width: 1412px;
+    margin-top: 34px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    gap: 40px;
+}
+
+section .selectcat .categories .item {
+    cursor: pointer;
+}
+
+section .selectcat .categories .item p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #000000;
+    margin-top: 0;
+}
+
+@media (max-width: 1440px) {
+    section .selectcat .categories {
+        width: 100%;
+        padding: 0 15px; /* مسافة من الجنب لو حبيت */
+        box-sizing: border-box;
+    }
+}

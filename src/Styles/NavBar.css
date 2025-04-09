@@ -1,0 +1,87 @@
+.search-icon {
+    top: 50%;
+    left: 175px;
+    transform: translateY(-50%);
+}
+
+@media screen and (max-width: 1034px) {
+    .search-icon {
+        left: 100px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .search-icon {
+        left: 10px;
+    }
+}
+
+
+.heart,
+.bag {
+    position: relative;
+    /* text-align: center; */
+    width: 13px;
+    height: 13px;
+    background-color: red;
+    border-radius: 50%;
+    bottom: 13px;
+    right: 1px;
+}
+
+.numOfItems {
+    font-family: Poppins;
+    position: absolute;
+    color: #FFFFFF;
+    top: -6px;
+    left: 4px;
+    font-size: 10px;
+    line-height: 28px;
+}
+
+
+.navbar-collapse {
+    z-index: 1000;
+    /* قيمة عالية عشان يطلع فوق كل حاجة */
+    background-color: #FFFFFF;
+    /* لون الخلفية عشان يغطي المحتوى اللي تحت */
+    border-radius: 0 0 20px 20px;
+    /* اختياري: عشان يبقى شكله متناسق مع الـ navbar */
+}
+
+/* للشاشات الصغيرة لما الـ collapse يتفتح */
+/* الـ navbar الأصلي يفضل زي ما هو */
+.navbar {
+    border-radius: 20px;
+    /* موجود أصلاً في الـ inline style، بس لو حابب تنقله للـ CSS */
+    position: relative;
+    z-index: 999;
+}
+
+/* الـ navbar-collapse لما يتفتح في الشاشات الصغيرة */
+.navbar-collapse {
+    z-index: 1000;
+    background-color: #FFFFFF;
+}
+
+/* للشاشات الصغيرة */
+@media screen and (max-width: 991px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 59px;
+        /* نفس ارتفاع الـ navbar */
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        border-radius: 0 0 20px 20px;
+        /* الزوايا التحت بس بتاخد نفس القيمة بتاعة الـ navbar */
+        background-color: #FFFFFF;
+        /* عشان التناسق مع الـ navbar */
+    }
+    .navbar {
+    border-radius: 20px;
+    /* موجود أصلاً في الـ inline style، بس لو حابب تنقله للـ CSS */
+    position: relative;
+    z-index: 999;
+}
+}
