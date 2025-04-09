@@ -96,6 +96,11 @@
 
 
 @media screen and (max-width: 500px) {
+    .signup-form {
+        background-color: #FFFFFF;
+        height: 125vh;
+    }
+
     .signup-title h2 {
         font-size: 30px;
     }
