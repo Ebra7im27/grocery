@@ -15,6 +15,7 @@ import OilsAndMargaineProducts from './Pages/OilsAndMargaineProducts';
 import SoftDrinksProducts from './Pages/SoftDrinksProducts';
 import EggsProducts from './Pages/EggsProducts';
 import AssaliProducts from './Pages/AssaliProducts';
+import SingleProduct from './Pages/SingleProduct';
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
       <Route path='/softdrinksproducts' element={<SoftDrinksProducts />} />
       <Route path='/eggsproducts' element={<EggsProducts />} />
       <Route path='/assaliproducts' element={<AssaliProducts />} />
+
+      <Route path='/singleproduct/:id' element={<SingleProduct />} />
     </Routes>
   )
 }

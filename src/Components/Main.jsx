@@ -24,7 +24,11 @@ function Main() {
             </p>
           </div>
           <div className="Welcome-Image">
-            <img src="../assets/photoMain.png" alt="ImageToDescribeTheSite" />
+            <img
+              src="../assets/photoMain.png"
+              alt="ImageToDescribeTheSite"
+              loading='lazy'
+            />
           </div>
         </div>
       </div>

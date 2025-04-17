@@ -26,11 +26,25 @@ function Login() {
             email: email,
             password: password
         };
-        axios.post("https://mediumblue-coyote-955348.hostingersite.com/user/login", formData)
+
+        axios.post("https://grocery.mlmcosmo.com/user/login", formData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
             .then((response) => {
                 const token = response.data.token;
+                if (!token) {
+                    Swal.fire({
+                        title: 'خطأ',
+                        text: 'لم يتم إرجاع رمز التوثيق من السيرفر. تواصل مع الدعم ❌',
+                        icon: 'error',
+                        confirmButtonText: 'حسناً'
+                    });
+                    return;
+                }
+
                 localStorage.setItem("token", JSON.stringify(token));
-                console.log(response.data);
                 Swal.fire({
                     title: 'تم بنجاح!',
                     text: 'تم تسجيل الدخول بنجاح ✅',
@@ -49,7 +63,7 @@ function Login() {
                     confirmButtonText: 'حسناً'
                 });
             });
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit} className="login-form">
@@ -66,6 +80,7 @@ function Login() {
                                 src="../assets/photoMarket.png"
                                 alt="photoMarket in Login"
                                 className="login-img"
+                                loading='lazy'
                             />
                         </div>
                     </motion.div>
@@ -93,7 +108,7 @@ function Login() {
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
-                            
+
                             <div className="input-group input-group-password">
                                 <label className='d-block' htmlFor="password">
                                     الرقم السرى

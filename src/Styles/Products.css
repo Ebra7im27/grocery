@@ -1,0 +1,81 @@
+.title {
+    font-size: 32px;
+    color: #253D4E;
+    /* margin: 40px 0; */
+    /* margin-top: 40px; */
+}
+
+/* ✅ تعديل هنا لتثبيت الطول وتوزيع المحتوى */
+.parent-card {
+    padding-top: 18px;
+    width: 280px;
+    height: 329px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
+/* ✅ تحكم في حجم الصورة */
+.parent-card .img img {
+    max-height: 170px;
+    object-fit: contain;
+}
+
+.parent-card .info-product {
+    margin-right: 16px;
+}
+
+.parent-card .info-product .name-product {
+    font-weight: 500;
+    font-size: 16px;
+    color: #253D4E;
+    margin-top: 21px;
+}
+
+.parent-card .info-product .size-product {
+    margin-top: 0;
+    color: Grey;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.price-quantity {
+    margin: 16px 7px 0px 0px;
+}
+
+.quantity {
+    width: 104px;
+    height: 50px;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    gap: 13px;
+}
+
+.price-quantity .quantity .plus,
+.price-quantity .quantity .minus {
+    outline: none;
+    box-shadow: none;
+    font-family: 'Cairo', sans-serif;
+    padding: 0 0 2px 0px;
+    width: 20px;
+    height: 20px;
+    color: #FFFFFF;
+    background-color: #125A7A80;
+    border-radius: 50%;
+    /* cursor: pointer; */
+    border: none;
+}
+
+.price-quantity .quantity .plus {
+    background-color: #125A7A;
+}
+
+.price-quantity .price {
+    margin-left: 20px;
+}
+
+.price-quantity .price span {
+    font-size: 18px;
+    color: #125A7A;
+}

@@ -16,8 +16,9 @@ section .selectcat .info .title {
 
 
 section .selectcat .categories {
-    width: 1412px;
+    width: 1408px;
     margin-top: 34px;
+    margin-bottom: 20px;
     background-color: #FFFFFF;
     border-radius: 10px;
     gap: 40px;

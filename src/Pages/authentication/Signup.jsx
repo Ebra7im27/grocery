@@ -34,6 +34,7 @@ function Signup() {
             return;
         }
 
+        /// Create a FormData object to send the data as multipart/form-data
         const formData = {
             name: firstName,
             last_name: lastName,
@@ -43,13 +44,13 @@ function Signup() {
             password: password,
             password_confirmation: confirmPassword
         };
-        axios.post("https://mediumblue-coyote-955348.hostingersite.com/user/register", formData, {
+        axios.post("https://grocery.mlmcosmo.com/user/register", formData, {
             headers: {
                 "content-type": "multipart/form-data",
             }
         })
             .then((response) => {
-                console.log(response.data);
+                console.log(response.data); // Log the response data to the console
                 Swal.fire({
                     title: 'تم بنجاح!',
                     text: 'تم إنشاء حسابك بنجاح ✅',
@@ -73,7 +74,7 @@ function Signup() {
                     confirmButtonText: 'حسناً'
                 });
             });
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit} className="signup-form">
@@ -90,6 +91,7 @@ function Signup() {
                                 src="../assets/photoMarket.png"
                                 alt="photoMarket in Signup"
                                 className="signup-image"
+                                loading='lazy'
                             />
                         </div>
                     </motion.div>
@@ -223,7 +225,7 @@ function Signup() {
                 </div>
             </div>
         </form>
-    )
-}
+    );
+};
 
-export default Signup
+export default Signup;
