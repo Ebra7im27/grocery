@@ -1,41 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../Components/NavBar';
 import '../Styles/SingleProduct.css';
-import { motion } from 'framer-motion';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import Loader from '../Components/Loading/Loader';
 import useLoader from '../Components/Loading/useLoader';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import SingleProductCard from '../Components/SingleProductCard';
+import SimilarProducts from '../Components/SimilarProducts';
+import Marquee from 'react-fast-marquee';
 
 function SingleProduct() {
     const isLoading = useLoader(2000);
+    const { id } = useParams();
+    const [product, setProduct] = useState([]);
+    const navigate = useNavigate();
+    const [similarProducts, setSimilarProducts] = useState([]);
 
-    const handleFavorite = () => {
-        toast('تم إضافة المنتج إلى المفضلة ❤️', {
-            style: {
-                borderRadius: '10px',
-                background: '#e0f7e9',
-                color: '#1b5e20',
-            },
-        });
-    };
-    
-    const handleAddToCart = () => {
-        toast('تم إضافة المنتج إلى السلة ✅', {
-            icon: '🛒',
-            style: {
-                borderRadius: '10px',
-                background: '#e0f7e9',
-                color: '#1b5e20',
-            },
-        });
-    }
+    useEffect(() => {
+        const token = JSON.parse(localStorage.getItem('token'));
 
-    const style = {
-        fontFamily: "Cairo",
-        fontWeight: "400",
-        fontSize: "14px",
-        color: "#000000",
-    }
+        if (token) {
+            const headers = {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            };
+
+            // Fetch the current product
+            axios.get(`https://grocery.mlmcosmo.com/user/products/${id}`, { headers })
+                .then(response => {
+                    const data = response.data.product;
+                    const relatedProducts = response.data.related_products; // جلب المنتجات ذات الصلة
+                    setProduct(data);
+                    // تصفية المنتج الحالي من المنتجات ذات الصلة
+                    const filteredRelatedProducts = relatedProducts.filter(item => item.id !== data.id);
+                    setSimilarProducts(filteredRelatedProducts);
+                })
+                .catch(error => {
+                    console.error("Error fetching product:", error);
+                    Swal.fire({
+                        title: 'حدث خطأ!',
+                        text: error?.response?.data?.message || 'حدث خطأ أثناء جلب المنتجات ❌',
+                        icon: 'error',
+                        confirmButtonText: 'حسناً'
+                    });
+                });
+        } else {
+            navigate("/");
+            Swal.fire({
+                title: 'غير مصرح!',
+                text: 'يرجى تسجيل الدخول أولاً',
+                icon: 'warning',
+                confirmButtonText: 'حسناً'
+            });
+        }
+    }, [id, navigate]); 
+
 
     return (
         <>
@@ -44,76 +65,26 @@ function SingleProduct() {
             ) : (
                 <section>
                     <NavBar />
-                    <div className="viewProduct d-flex justify-content-center align-items-center flex-wrap">
-                        <div className='imgProduct'>
-                            <img src="../assets/Food_cheetos__-removebg-preview 2.png" alt="" />
-                        </div>
-                        <div className='detailsProduct d-flex flex-column'>
-                            <span className='titleProduct'>شيبسى شيتوس بالطعم الحار جدا</span>
-                            <span className="sizeProduct">250مل</span>
-                            <span className='priceProduct'>10ج</span>
-                            <div className='price-quantity d-flex align-items-center gap-4'>
-                                <div className="quantity d-flex justify-content-center align-items-center">
-                                    <motion.button
-                                        whileTap={{ scale: 1.1 }}
-                                        className="plus d-flex justify-content-center align-items-center"
-                                        type="button"
-                                    >
-                                        +
-                                    </motion.button>
-                                    <div className="number-quantity">
-                                        <span style={{ color: "#000000" }}>2</span>
-                                    </div>
-                                    <motion.button
-                                        whileTap={{ scale: 1.1 }}
-                                        className="minus d-flex justify-content-center align-items-center"
-                                        type="button"
-                                    >
-                                        -
-                                    </motion.button>
-                                </div>
-
-                                <div
-                                    className='heartProduct'
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={handleFavorite}
-                                >
-                                    <span
-                                        style={{ color: '#125A7A' }}
-                                        className='fs-4'
-                                    >
-                                        <i className="far fa-heart"></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <hr />
-
-                            <div className='descriptionProduct d-flex flex-column gap-3'>
-                                <div className='deleveryProduct d-flex justify-content-between' style={style}>
-                                    <span>التسليم المتوقع</span>
-                                    <span>في نفس اليوم</span>
-                                </div>
-                                <div className='sizeProduct d-flex justify-content-between' style={style}>
-                                    <span>الوزن</span>
-                                    <span>150 جرام</span>
-                                </div>
-                                <div className='categoryProduct d-flex justify-content-between' style={style}>
-                                    <span>التصنيف</span>
-                                    <span>الحلويات والشيكولاته والشيبس</span>
-                                </div>
-                                <div className='btnProduct d-flex justify-content-center align-items-center'>
-                                    <button
-                                        onClick={handleAddToCart}
-                                        className='btn-cart'
-                                    >
-                                        اضف الى السله
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <SingleProductCard props={product} />
+                    <div>
+                        <h2
+                            className='fw-bold'
+                            style={{
+                                fontSize: "32px",
+                                width: "78%",
+                                margin: "auto",
+                                color: "#253D4E",
+                                marginTop: "40px"
+                            }}>
+                            منتجات ذات صله
+                        </h2>
+                        <Marquee pauseOnHover={true} pauseOnClick={true} speed={50}>
+                            {similarProducts.map((item) => (
+                                <SimilarProducts props={item} key={item.id} />
+                            ))}
+                        </Marquee>
                     </div>
-                    <Toaster />
+                    <Toaster position="top-center" reverseOrder={false} />
                 </section>
             )}
         </>

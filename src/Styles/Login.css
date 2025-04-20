@@ -81,6 +81,10 @@
     font-size: 12px;
 }
 
+.login-btn:hover {
+    background-color: #0E4B6D;
+}
+
 /* OR Divider */
 .login-or-divider {
     margin-top: 36px;
@@ -114,6 +118,10 @@
     color: #FFFFFF;
     font-weight: 500;
     font-size: 13px;
+}
+
+.signup-btn:hover {
+    background-color: #0E4B6D;
 }
 
 .signup-link {

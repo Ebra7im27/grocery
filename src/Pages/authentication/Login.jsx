@@ -131,8 +131,8 @@ function Login() {
                             <div className="login-btn-container">
                                 <motion.button
                                     type="submit"
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
+                                    // whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 1.1 }}
                                     className="login-btn"
                                 >
                                     تسجيل دخول
@@ -150,8 +150,8 @@ function Login() {
 
                             <div className='login-footer'>
                                 <motion.button
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
+                                    // whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 1.1 }}
                                     className="signup-btn"
                                 >
                                     <Link to="/signup" className="signup-link">
