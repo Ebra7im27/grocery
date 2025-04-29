@@ -17,6 +17,7 @@ section .selectcat .info .title {
 
 section .selectcat .categories {
     width: 1408px;
+    padding-top: 20px;
     margin-top: 34px;
     margin-bottom: 20px;
     background-color: #FFFFFF;
@@ -24,16 +25,6 @@ section .selectcat .categories {
     gap: 40px;
 }
 
-section .selectcat .categories .item {
-    cursor: pointer;
-}
-
-section .selectcat .categories .item p {
-    font-size: 12px;
-    font-weight: 400;
-    color: #000000;
-    margin-top: 0;
-}
 
 @media (max-width: 1440px) {
     section .selectcat .categories {

@@ -13,13 +13,12 @@ function Products() {
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem('token'));
+        const headers = {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        }
         if (token) {
-            axios.get('https://grocery.mlmcosmo.com/user/products', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                }
-            })
+            axios.get('https://grocery.mlmcosmo.com/user/products', { headers })
                 .then((response) => {
                     setProducts(response.data.message); // Set the products to the state
                     // console.log(response.data.message); // Log the products to the console

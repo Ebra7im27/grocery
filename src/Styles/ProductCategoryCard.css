@@ -1,0 +1,15 @@
+.item {
+    cursor: pointer;
+}
+
+.item img {
+    max-height: 170px;
+    object-fit: contain;
+}
+
+.item p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #000000;
+    margin-top: 0;
+}

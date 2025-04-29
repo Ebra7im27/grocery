@@ -1,8 +1,21 @@
 import '../Styles/NavBar.css';
-import React from 'react';
+import React, { useContext, useEffect } from 'react'; // أضف useContext و useEffect
 import { Link } from 'react-router-dom';
+import { CartContext } from '../Context/CartContext'; // استورد CartContext
+// استيراد جميع الصور
+import logoGrocery from "../assets/logoGrocery.png";
+import searchIcon from "../assets/li_search.png";
+import userIcon from "../assets/user.png";
+import bagIcon from "../assets/bag.png";
+import heartIcon from "../assets/heart-add.png";
 
 function NavBar() {
+    let { cart, getCart } = useContext(CartContext);
+
+    useEffect(() => {
+        getCart();
+    }, []);
+
     return (
         <nav
             className="navbar navbar-expand-lg container"
@@ -23,11 +36,10 @@ function NavBar() {
                         className="navbar-brand"
                         style={{ fontSize: "20px", fontWeight: "600", color: "#2A9ED1" }}
                     >
-                        بقالة&nbsp;&nbsp;
-                        <img src="../assets/logoGrocery.png" alt="Logo Gerocery" />
+                        بقالة
+                        <img src={logoGrocery} alt="Logo Gerocery" />
                     </Link>
                 </div>
-
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -73,7 +85,7 @@ function NavBar() {
                         <div>
                             <img
                                 className='search-icon position-absolute'
-                                src="../assets/li_search.png"
+                                src={searchIcon}
                                 alt="icon in searchBar"
                             />
                         </div>
@@ -81,7 +93,7 @@ function NavBar() {
 
                     <div className="infoUser" style={{ display: "flex", alignItems: "center" }}>
                         <div className='photoUser'>
-                            <img src="../assets/user.png" alt="user" />
+                            <img src={userIcon} alt="user" />
                         </div>
                         <select
                             name="language"
@@ -113,16 +125,16 @@ function NavBar() {
                         className="card-fav d-flex"
                     >
                         <div>
-                            <Link to='/'>
-                                <img src="../assets/bag.png" alt="items in bag" width={24} />
+                            <Link to='/cart'>
+                                <img src={bagIcon} alt="items in bag" width={24} />
                             </Link>
                             <div className='bag'>
-                                <span className='numOfItems'>1</span>
+                                <span className='numOfItems'>{cart.length}</span>
                             </div>
                         </div>
                         <div>
                             <Link to='/'>
-                                <img src="../assets/heart-add.png" alt="Favorite items" />
+                                <img src={heartIcon} alt="Favorite items" />
                             </Link>
                             <div className='heart'>
                                 <span className='numOfItems'>1</span>
@@ -132,7 +144,7 @@ function NavBar() {
                 </div>
             </div>
         </nav>
-    )
+    );
 }
 
-export default NavBar
+export default NavBar;

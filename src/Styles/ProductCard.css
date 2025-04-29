@@ -11,7 +11,7 @@
 
 /* ✅ تحكم في حجم الصورة */
 .parent-card .img img {
-    max-height: 170px;
+    max-height: 195px;
     object-fit: contain;
 }
 

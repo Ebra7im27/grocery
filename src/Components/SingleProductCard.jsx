@@ -1,62 +1,60 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import toast from 'react-hot-toast';
+import { CartContext } from '../Context/CartContext';
+import '../Styles/SingleProductCard.css'
 
 export default function SingleProductCard({ props }) {
-
-    const handleFavorite = () => {
-        toast('تم إضافة المنتج إلى المفضلة ❤️', {
-            style: {
-                borderRadius: '10px',
-                background: '#e0f7e9',
-                color: '#1b5e20',
-            },
-        });
-    };
-
-    const handleAddToCart = () => {
-        toast('تم إضافة المنتج إلى السلة ✅', {
-            icon: '🛒',
-            style: {
-                borderRadius: '10px',
-                background: '#e0f7e9',
-                color: '#1b5e20',
-            },
-        });
-    }
+    let { addProductToCart, updateProductCount, cart } = useContext(CartContext);
 
     const style = {
         fontFamily: "Cairo",
         fontWeight: "400",
         fontSize: "14px",
         color: "#000000",
-    }
+    };
 
-    // تحديد لون حالة المخزون بناءً على القيمة
     const getStockStatusColor = (status) => {
         return status === "out_of_stock" ? "text-danger" : "text-success";
     };
-    // التحقق من توفر المنتج
     const isProductAvailable = props.stock_status !== "out_of_stock";
 
-    // تعريف الـ baseURL للصور
+    // ابحث عن المنتج في السلة لجلب الكمية المحدثة
+    const cartItem = cart.find(item => item.product_id === props.id);
+    const initialQuantity = cartItem ? cartItem.quantity : (props.quantity || 1);
+
+    // استخدم state محلي لتتبع الكمية
+    const [quantity, setQuantity] = useState(initialQuantity);
+
+    // تحديث الكمية المحلية لما بيانات السلة تتغير
+    useEffect(() => {
+        const updatedCartItem = cart.find(item => item.product_id === props.id);
+        const updatedQuantity = updatedCartItem ? updatedCartItem.quantity : (props.quantity || 1);
+        setQuantity(updatedQuantity);
+    }, [cart, props.id, props.quantity]);
+
     const baseURL = 'https://grocery.mlmcosmo.com';
 
-    // دالة للحصول على الرابط الكامل للصورة
     const getImageUrl = (imagePath) => {
-        // التحقق من أن المسار موجود
         if (!imagePath) return '';
-
-        // إذا كان المسار يبدأ بـ http أو https، فهذا يعني أنه URL كامل بالفعل
         if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
             return imagePath;
         }
-
-        // التأكد من أن المسار يبدأ بـ /
         const path = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
-
-        // إعادة المسار الكامل
         return `${baseURL}${path}`;
+    };
+
+    const handleIncrease = async () => {
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
+        await updateProductCount(props.id, newQuantity);
+    };
+
+    const handleDecrease = async () => {
+        const newQuantity = quantity - 1;
+        if (newQuantity > 0) {
+            setQuantity(newQuantity);
+            await updateProductCount(props.id, newQuantity);
+        }
     };
 
     return (
@@ -72,6 +70,7 @@ export default function SingleProductCard({ props }) {
                     <div className='price-quantity d-flex align-items-center gap-4'>
                         <div className="quantity d-flex justify-content-center align-items-center">
                             <motion.button
+                                onClick={handleIncrease}
                                 whileTap={{ scale: 1.1 }}
                                 className="plus d-flex justify-content-center align-items-center"
                                 type="button"
@@ -79,9 +78,10 @@ export default function SingleProductCard({ props }) {
                                 +
                             </motion.button>
                             <div className="number-quantity">
-                                <span style={{ color: "#000000" }}>{props.quantity}</span>
+                                <span style={{ color: "#000000" }}>{quantity}</span>
                             </div>
                             <motion.button
+                                onClick={handleDecrease}
                                 whileTap={{ scale: 1.1 }}
                                 className="minus d-flex justify-content-center align-items-center"
                                 type="button"
@@ -93,11 +93,8 @@ export default function SingleProductCard({ props }) {
                         <div
                             className='heartProduct'
                             style={{ cursor: 'pointer' }}
-                            onClick={handleFavorite}
                         >
-                            <span
-                                className='fs-5'
-                            >
+                            <span className='fs-5'>
                                 <i className="fas fa-heart"></i>
                             </span>
                         </div>
@@ -125,11 +122,10 @@ export default function SingleProductCard({ props }) {
                             </span>
                         </div>
 
-                        {/* عرض زر الإضافة للسلة فقط إذا كان المنتج متوفر */}
                         {isProductAvailable && (
                             <div className='btnProduct d-flex justify-content-center align-items-center'>
                                 <button
-                                    onClick={handleAddToCart}
+                                    onClick={() => addProductToCart(props.id, 1)}
                                     className='btn-cart'
                                 >
                                     اضف الى السله
@@ -140,5 +136,5 @@ export default function SingleProductCard({ props }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }

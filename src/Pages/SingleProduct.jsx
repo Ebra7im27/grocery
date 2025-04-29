@@ -55,7 +55,7 @@ function SingleProduct() {
                 confirmButtonText: 'حسناً'
             });
         }
-    }, [id, navigate]); 
+    }, [id, navigate]);
 
 
     return (
@@ -65,7 +65,7 @@ function SingleProduct() {
             ) : (
                 <section>
                     <NavBar />
-                    <SingleProductCard props={product} />
+                    <SingleProductCard key={product.id} props={product} />
                     <div>
                         <h2
                             className='fw-bold'

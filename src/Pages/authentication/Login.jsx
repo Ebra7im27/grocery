@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import photoMarket from "../../assets/photoMarket.png"
+import IconGoogle from "../../assets/icons_google.png";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -34,6 +36,7 @@ function Login() {
         })
             .then((response) => {
                 const token = response.data.token;
+                const user = response.data.user;
                 if (!token) {
                     Swal.fire({
                         title: 'خطأ',
@@ -45,6 +48,7 @@ function Login() {
                 }
 
                 localStorage.setItem("token", JSON.stringify(token));
+                localStorage.setItem("user", JSON.stringify(user));
                 Swal.fire({
                     title: 'تم بنجاح!',
                     text: 'تم تسجيل الدخول بنجاح ✅',
@@ -77,7 +81,7 @@ function Login() {
                     >
                         <div className="divImg d-none d-xl-block">
                             <img
-                                src="../assets/photoMarket.png"
+                                src={photoMarket}
                                 alt="photoMarket in Login"
                                 className="login-img"
                                 loading='lazy'
@@ -142,7 +146,7 @@ function Login() {
                             <div className='login-or-divider'>
                                 <span>Or</span>
                                 <img
-                                    src="../assets/icons_google.png"
+                                    src={IconGoogle}
                                     alt="LogIn With Email"
                                     className="google-icon"
                                 />

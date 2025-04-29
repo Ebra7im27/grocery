@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from './NavBar'
 import '../Styles/Main.css'
+import MainPhoto from "../assets/photoMain.png"
 
 function Main() {
   return (
@@ -25,7 +26,7 @@ function Main() {
           </div>
           <div className="Welcome-Image">
             <img
-              src="../assets/photoMain.png"
+              src={MainPhoto}
               alt="ImageToDescribeTheSite"
               loading='lazy'
             />

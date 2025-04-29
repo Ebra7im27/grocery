@@ -1,8 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../Styles/ProductCategory.css';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import ProductCategoryCard from './ProductCategoryCard';
 
 function ProductCategory() {
+    const [productCategory, setProductCategory] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = JSON.parse(localStorage.getItem('token'));
+        const user = JSON.parse(localStorage.getItem('user'));
+        const headers = {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        }
+        if (token) {
+            axios.get(`https://grocery.mlmcosmo.com/user/categories/${user.id}`, { headers })
+                .then((response) => {
+                    setProductCategory(response.data.message); // Set the products to the state
+                    console.log(response.data.message); // Log the products to the console
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        title: 'حدث خطأ!',
+                        text: error?.response?.data?.message || 'حدث خطأ أثناء جلب المنتجات ❌',
+                        icon: 'error',
+                        confirmButtonText: 'حسناً'
+                    });
+                });
+        } else {
+            navigate("/");
+            Swal.fire({
+                title: 'غير مصرح!',
+                text: 'يرجى تسجيل الدخول أولاً',
+                icon: 'warning',
+                confirmButtonText: 'حسناً'
+            });
+        }
+    }, [navigate]);
+
+
+
     return (
         <section>
             <div className="container selectcat">
@@ -12,47 +52,12 @@ function ProductCategory() {
                 </div>
 
                 <div className='categories d-flex flex-wrap justify-content-evenly align-items-center'>
-                    <Link to="/dairyandmilkproducts" className='item text-center text-decoration-none'>
-                        <img src="../assets/Dairy-and-milk.png" alt="Dairy & Milk Products" />
-                        <p>منتجات الالبان والحليب</p>
-                    </Link>
-
-                    <Link to="/teaandcoffeeproducts" className='item text-center text-decoration-none'>
-                        <img src="../assets/Coffee-and-tea.png" alt="Tea & Coffee Products" />
-                        <p>شاى وقهوه</p>
-                    </Link>
-
-                    <Link to="/saucesproducts" className='item text-center text-decoration-none'>
-                        <img src="../assets/Sauces.png" alt="Sauce Products" />
-                        <p>جميع الصلصات</p>
-                    </Link>
-
-                    <Link to="/cleanlinessproducts" className='item text-center text-decoration-none'>
-                        <img src="../assets/Cleanliness.png" alt="Hygiene Products" />
-                        <p>منتجات التنظيف</p>
-                    </Link>
-
-                    <Link to="/oilsandmargaineproducts" className='item text-center text-decoration-none'>
-                        <img src="../assets/Oils-and-margaine.png" alt="Oil & Ghee Products" />
-                        <p>الزيوت والسمن والزبده</p>
-                    </Link>
-
-                    <Link to="/softdrinksproducts" className='item text-center text-decoration-none'>
-                        <img src="../assets/Soft drinks.png" alt="Soda Water Products" />
-                        <p>الماء والمشروبات والعصائر</p>
-                    </Link>
-
-                    <Link to="/eggsproducts" className='item text-center text-decoration-none'>
-                        <img src="../assets/eggs.png" alt="Egg and dairy products" />
-                        <p>البيض ومشتقات الالبان</p>
-                    </Link>
-
-                    <Link to="/assaliproducts" className='item text-center text-decoration-none'>
-                        <img src="../assets/Assali.png" alt="Gaming Products" />
-                        <p>التسالي والمقرمشات</p>
-                    </Link>
+                    {
+                        productCategory.map((item) => (
+                            <ProductCategoryCard key={item.id} props={item} />
+                        ))
+                    }
                 </div>
-
             </div>
         </section>
     )

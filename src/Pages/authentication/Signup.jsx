@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import photoMarket from "../../assets/photoMarket.png"
+
 
 function Signup() {
     const [firstName, setFname] = useState("");
@@ -88,7 +90,7 @@ function Signup() {
                     >
                         <div className="signup-image-container d-none d-xl-block">
                             <img
-                                src="../assets/photoMarket.png"
+                                src={photoMarket}
                                 alt="photoMarket in Signup"
                                 className="signup-image"
                                 loading='lazy'
