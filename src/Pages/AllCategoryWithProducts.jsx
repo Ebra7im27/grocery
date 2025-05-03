@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Loader from '../Components/Loading/Loader';
 import useLoader from '../Components/Loading/useLoader';
-import '../Styles/DairyAndMilkProducts.css';
+import '../Styles/AllCategoryWithProducts.css';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
@@ -57,10 +57,10 @@ function AllCategoryWithProducts() {
             {isLoading ? (
                 <Loader />
             ) : (
-                <section style={{ paddingTop: '28px' }}>
+                <section>
                     {/* <NavBar/> */}
                     <NavBar />
-                    <div className="container">
+                    <div className="container" style={{ marginTop: "100px" }}>
                         <h2 className="title fw-bold my-4">منتجات {categoryName}</h2>
                         <div className="d-flex flex-wrap justify-content-center justify-content-md-between align-items-end">
                             {

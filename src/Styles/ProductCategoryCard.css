@@ -3,13 +3,13 @@
 }
 
 .item img {
-    max-height: 170px;
+    max-height: 140px;
     object-fit: contain;
 }
 
-.item p {
-    font-size: 12px;
-    font-weight: 400;
-    color: #000000;
+.item .nameProduct {
+    font-size: 15px;
+    font-weight: 600;
+    color: #253D4E;
     margin-top: 0;
 }

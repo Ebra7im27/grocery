@@ -1,6 +1,6 @@
 .viewProduct {
     margin: auto;
-    margin-top: 80px !important;
+    margin-top: 140px !important;
     /* margin-bottom: 80px; */
     width: 78%;
     background-color: #FFFFFF;
@@ -42,18 +42,20 @@
 
 .price-quantity .heartProduct {
     /* background-color: #fa0808; */
-    padding-left: 1px;
-    width: 32px;
+    /* padding-left: 1px; */
+    /* width: 32px;
     height: 32px;
-    border-radius: 50%;
-    background-color: #125A7A33;
+    border-radius: 50%; */
+    border: 0;
+    /* color: #125A7A33; */
+    background-color: #FFFFFF;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .price-quantity .heartProduct span {
-    color: #ADADAD;
+    color: #125A7A33;
 }
 
 .quantity {

@@ -41,8 +41,6 @@ function ProductCategory() {
         }
     }, [navigate]);
 
-
-
     return (
         <section>
             <div className="container selectcat">

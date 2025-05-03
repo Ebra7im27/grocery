@@ -26,7 +26,7 @@ export default function ProductCategoryCard({ props }) {
                     alt={props.name}
                     loading='lazy'
                 />
-                <p>{props.name}</p>
+                <p className='nameProduct'>{props.name}</p>
             </Link>
         </div>
     )

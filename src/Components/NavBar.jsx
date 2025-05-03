@@ -1,27 +1,37 @@
 import '../Styles/NavBar.css';
-import React, { useContext, useEffect } from 'react'; // أضف useContext و useEffect
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../Context/CartContext'; // استورد CartContext
-// استيراد جميع الصور
+import { CartContext } from '../Context/CartContext';
 import logoGrocery from "../assets/logoGrocery.png";
 import searchIcon from "../assets/li_search.png";
 import userIcon from "../assets/user.png";
 import bagIcon from "../assets/bag.png";
 import heartIcon from "../assets/heart-add.png";
+import { FavContext } from '../Context/FavContext';
 
 function NavBar() {
     let { cart, getCart } = useContext(CartContext);
+    let { fav, getFav } = useContext(FavContext);
 
     useEffect(() => {
         getCart();
+    }, []);
+    useEffect(() => {
+        getFav();
     }, []);
 
     return (
         <nav
             className="navbar navbar-expand-lg container"
             style={{
+                marginTop:"28px",
                 minHeight: "76px",
                 backgroundColor: "#FFFFFF",
+                position: "absolute",
+                top: "0",
+                left: "0",
+                right: "0",
+                zIndex: "1000",
             }}
         >
             <div
@@ -133,11 +143,11 @@ function NavBar() {
                             </div>
                         </div>
                         <div>
-                            <Link to='/'>
+                            <Link to='/favorite'>
                                 <img src={heartIcon} alt="Favorite items" />
                             </Link>
                             <div className='heart'>
-                                <span className='numOfItems'>1</span>
+                                <span className='numOfItems'>{fav.length}</span>
                             </div>
                         </div>
                     </div>

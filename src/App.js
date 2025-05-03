@@ -11,6 +11,7 @@ import AllCategoryWithProducts from './Pages/AllCategoryWithProducts';
 import SingleProduct from './Pages/SingleProduct';
 import Cart from './Pages/Cart';
 import PageNotFound from './Pages/PageNotFound';
+import Fav from './Pages/Fav';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path='/home/category/:id' element={<AllCategoryWithProducts />} />
       <Route path='/product/:id' element={<SingleProduct />} />
       <Route path='/cart' element={<Cart />} />
+      <Route path='/favorite' element={<Fav />} />
       <Route path='*' element={<PageNotFound />} />
     </Routes>
   )

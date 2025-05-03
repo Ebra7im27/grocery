@@ -1,74 +1,120 @@
 .container-fluid {
     position: relative;
-    min-height: 395px;
+    height: 100vh; /* ارتفاع الشاشة بالكامل */
     overflow: hidden;
+}
+
+.mySwiper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.swiper-slide {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+
+.full-slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.Welcome {
+    position: relative;
+    z-index: 3;
+    background: transparent;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .Welcome-Text {
     width: 623px;
-    margin-top: 103px;
+    background: rgba(0, 0, 0, 0.5); /* خلفية شبه شفافة للنص */
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 3;
 }
 
 .Welcome-Text p {
     font-size: 40px;
     font-weight: 600;
+    color: #fff;
+    margin: 0;
 }
 
-.Welcome-Image {
-    margin-top: 30px;
+.autoplay-progress {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    display: none !important;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--swiper-theme-color);
 }
 
+.autoplay-progress svg {
+    --progress: 0;
+    position: absolute;
+    left: 0;
+    top: 0px;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    stroke-width: 4px;
+    stroke: var(--swiper-theme-color);
+    fill: none;
+    stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+    stroke-dasharray: 125.6;
+    transform: rotate(-90deg);
+}
 
+.nav-bar {
+    position: absolute; /* وضع الـ NavBar فوق الصور */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 4;
+    background: transparent; /* خلفية شفافة للـ NavBar */
+}
 
 @media screen and (max-width: 1034px) {
     .Welcome-Text {
-        /* width: 823px; */
-        margin-top: 20px;
+        width: 100%;
     }
 
     .Welcome-Text p {
         font-size: 30px;
     }
-
-    .Welcome-Image {
-        margin-top: -70px;
-        margin-right: 100px;
-    }
-
-    .Welcome-Image img {
-        width: 100%;
-    }
 }
 
 @media screen and (max-width: 768px) {
-    .Welcome-Text {
-        margin-top: 20px;
-    }
-
     .Welcome-Text p {
         font-size: 25px;
-    }
-
-    .Welcome-Image {
-        margin-top: -30px;
-        margin-right: 0px;
-    }
-
-    .Welcome-Image img {
-        width: 90%;
     }
 }
 
 @media screen and (max-width: 340px) {
-    .Welcome-Text {
-        margin-top: 20px;
-    }
-
     .Welcome-Text p {
-        font-size: 25px;
-    }
-
-    .Welcome-Image {
-        margin-right: 10px;
+        font-size: 20px;
     }
 }

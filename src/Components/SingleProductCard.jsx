@@ -1,10 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CartContext } from '../Context/CartContext';
-import '../Styles/SingleProductCard.css'
+import { FavContext } from '../Context/FavContext';
+import '../Styles/SingleProductCard.css';
+import toast from "react-hot-toast";
 
 export default function SingleProductCard({ props }) {
     let { addProductToCart, updateProductCount, cart } = useContext(CartContext);
+    let { addProductToFav, fav } = useContext(FavContext);
 
     const style = {
         fontFamily: "Cairo",
@@ -17,25 +20,22 @@ export default function SingleProductCard({ props }) {
         return status === "out_of_stock" ? "text-danger" : "text-success";
     };
     const isProductAvailable = props.stock_status !== "out_of_stock";
+    const isFavorite = fav.some(item => item.id === props.id);
 
-    // ابحث عن المنتج في السلة لجلب الكمية المحدثة
     const cartItem = cart.find(item => item.product_id === props.id);
-    const initialQuantity = cartItem ? cartItem.quantity : (props.quantity || 1);
-
-    // استخدم state محلي لتتبع الكمية
+    const initialQuantity = cartItem ? cartItem.quantity : 1;
     const [quantity, setQuantity] = useState(initialQuantity);
 
-    // تحديث الكمية المحلية لما بيانات السلة تتغير
     useEffect(() => {
         const updatedCartItem = cart.find(item => item.product_id === props.id);
-        const updatedQuantity = updatedCartItem ? updatedCartItem.quantity : (props.quantity || 1);
+        const updatedQuantity = updatedCartItem ? updatedCartItem.quantity : 1;
         setQuantity(updatedQuantity);
-    }, [cart, props.id, props.quantity]);
+    }, [cart, props.id]);
 
     const baseURL = 'https://grocery.mlmcosmo.com';
 
     const getImageUrl = (imagePath) => {
-        if (!imagePath) return '';
+        if (!imagePath) return '/images/placeholder.jpg'; // مسار افتراضي حقيقي
         if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
             return imagePath;
         }
@@ -44,17 +44,31 @@ export default function SingleProductCard({ props }) {
     };
 
     const handleIncrease = async () => {
-        const newQuantity = quantity + 1;
-        setQuantity(newQuantity);
-        await updateProductCount(props.id, newQuantity);
+        try {
+            const newQuantity = quantity + 1;
+            await updateProductCount(props.id, newQuantity);
+            setQuantity(newQuantity);
+        } catch (error) {
+            console.error("Error updating quantity:", error);
+            toast.error('فشل تحديث الكمية');
+        }
     };
 
     const handleDecrease = async () => {
-        const newQuantity = quantity - 1;
-        if (newQuantity > 0) {
-            setQuantity(newQuantity);
-            await updateProductCount(props.id, newQuantity);
+        if (quantity > 1) {
+            try {
+                const newQuantity = quantity - 1;
+                await updateProductCount(props.id, newQuantity);
+                setQuantity(newQuantity);
+            } catch (error) {
+                console.error("Error updating quantity:", error);
+                toast.error('فشل تحديث الكمية');
+            }
         }
+    };
+
+    const handleFavClick = async () => {
+        await addProductToFav(props.id, props.image_path);
     };
 
     return (
@@ -90,14 +104,14 @@ export default function SingleProductCard({ props }) {
                             </motion.button>
                         </div>
 
-                        <div
+                        <button
                             className='heartProduct'
-                            style={{ cursor: 'pointer' }}
+                            onClick={handleFavClick}
                         >
-                            <span className='fs-5'>
-                                <i className="fas fa-heart"></i>
+                            <span>
+                                <i className={`fs-3 fas fa-heart ${isFavorite ? 'text-danger' : ''}`}></i>
                             </span>
-                        </div>
+                        </button>
                     </div>
 
                     <hr style={{ color: "black" }} />

@@ -11,7 +11,6 @@ export default function CartContextProvider({ children }) {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
     };
-
     const [cart, setCart] = useState([]);
 
     // Function to add product to cart
@@ -35,7 +34,6 @@ export default function CartContextProvider({ children }) {
             });
         } catch (error) {
             console.error("Error adding product to cart:", error);
-            toast.error('فشل إضافة المنتج إلى السلة');
         }
     }
 
@@ -52,35 +50,35 @@ export default function CartContextProvider({ children }) {
         }
     }
 
-// Function to update product quantity in cart
-async function updateProductCount(product_id, quantity) {
-    if (quantity > 0) {
-        try {
-            let { data } = await axios.post(
-                `${baseURL}/user/cart/${product_id}`,
-                {
-                    quantity
-                },
-                { headers }
-            );
+    // Function to update product quantity in cart
+    async function updateProductCount(product_id, quantity) {
+        if (quantity > 0) {
+            try {
+                let { data } = await axios.post(
+                    `${baseURL}/user/cart/${product_id}`,
+                    {
+                        quantity
+                    },
+                    { headers }
+                );
 
-            console.log("Quantity update response:", data);
-            await getCart(); // جلب بيانات السلة المحدثة
-            console.log("Cart after update:", cart);
-            toast('تم تحديث الكمية بنجاح ✅', {
-                icon: '🛒',
-                style: {
-                    borderRadius: '10px',
-                    background: '#e0f7e9',
-                    color: '#1b5e20',
-                },
-            });
-        } catch (error) {
-            console.error("Error updating product quantity:", error);
-            toast.error('فشل تحديث الكمية');
+                console.log("Quantity update response:", data);
+                await getCart(); // جلب بيانات السلة المحدثة
+                console.log("Cart after update:", cart);
+                toast('تم تحديث الكمية بنجاح ✅', {
+                    icon: '🛒',
+                    style: {
+                        borderRadius: '10px',
+                        background: '#e0f7e9',
+                        color: '#1b5e20',
+                    },
+                });
+            } catch (error) {
+                console.error("Error updating product quantity:", error);
+                toast.error('فشل تحديث الكمية');
+            }
         }
     }
-}
 
     // Function to delete product from cart
     async function deleteProduct(product_id) {
@@ -90,17 +88,17 @@ async function updateProductCount(product_id, quantity) {
 
             console.log("Delete Product:", data);
             await getCart()
-            toast('تم حذف المنتج من السلة ✅', {
-                icon: '🛒',
+            toast('تم حذف المنتج من السلة ❌', {
+                icon: '🗑️',
                 style: {
                     borderRadius: '10px',
-                    background: '#e0f7e9',
-                    color: '#1b5e20',
+                    background: '#fdecea', // لون خلفية أحمر فاتح
+                    color: '#b71c1c',       // لون النص أحمر غامق
                 },
             });
+
         } catch (error) {
             console.error("Error deleting product from cart:", error);
-            toast.error('فشل حذف المنتج من السلة');
         }
     }
 

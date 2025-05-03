@@ -65,7 +65,7 @@ export default function CartCard() {
                             </div>
                             <button onClick={() => deleteProduct(item.product_id)} className='deleteProductFromCart d-flex align-items-center justify-content-center gap-1'>
                                 <i className="fas fa-trash basket"></i>
-                                <p>حذف من السله</p>
+                                <p style={{marginTop:"11px"}}>حذف من السله</p>
                             </button>
                         </div>
                     </div>

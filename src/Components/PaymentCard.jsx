@@ -20,7 +20,7 @@ export default function PaymentCard() {
                     <p>الدفع عن طريق</p>
                     <img src={LogoPayment} alt="paymentCard" />
                 </div>
-                <table className="table table-borderless text-center" style={{ "--bs-table-bg": "transparent" }}>
+                <table className="table table-borderless text-center mt-3" style={{ "--bs-table-bg": "transparent" }}>
                     <thead>
                         <tr>
                             <th scope="col">المنتج</th>

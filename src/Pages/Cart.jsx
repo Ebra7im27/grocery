@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import CartCard from '../Components/CartCard';
 import PaymentCard from '../Components/PaymentCard';
 import { CartContext } from '../Context/CartContext';
+import { Toaster } from 'react-hot-toast';
 
 export default function Cart() {
     const isLoading = useLoader(2000);
@@ -43,7 +44,7 @@ export default function Cart() {
 
     const ShowProducts = () => {
         return (
-            <div className='d-flex justify-content-between flex-wrap'>
+            <div className='d-flex justify-content-between flex-wrap' style={{ marginTop: "100px" }}>
                 <CartCard />
                 <PaymentCard />
             </div>
@@ -64,6 +65,7 @@ export default function Cart() {
                     </section>
                 )
             }
+            <Toaster position="top-center" reverseOrder={false} />
         </>
     )
 }

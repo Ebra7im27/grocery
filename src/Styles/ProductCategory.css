@@ -17,6 +17,7 @@ section .selectcat .info .title {
 
 section .selectcat .categories {
     width: 1408px;
+    height: 200px;
     padding-top: 20px;
     margin-top: 34px;
     margin-bottom: 20px;

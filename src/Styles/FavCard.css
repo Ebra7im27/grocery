@@ -1,0 +1,36 @@
+.favCard .title {
+    font-size: 32px;
+    color: #253D4E;
+}
+
+.favCard .Card {
+    flex-wrap: wrap !important;
+    background-color: #FFFFFF;
+    width: 908px;
+    border-radius: 15px;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+.favCard .Card .info img {
+    max-height: 100px;
+    object-fit: contain;
+}
+
+.favCard .Card .info .description h3 {
+    font-weight: 500;
+    font-size: 18px;
+    color: #1E1E1E;
+}
+
+.favCard .Card .info .description span {
+    color: #1E1E1E;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.favCard .Card  span {
+    color: #1E1E1E;
+    font-size: 17px;
+    font-weight: 500;
+}

@@ -8,15 +8,18 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/js/all.min.js';
 import { BrowserRouter } from 'react-router-dom';
 import CartContextProvider from './Context/CartContext';
+import FavContextProvider from './Context/FavContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <CartContextProvider>
-    <BrowserRouter>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </BrowserRouter>
-  </CartContextProvider>
+  <FavContextProvider>
+    <CartContextProvider>
+      <BrowserRouter>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </BrowserRouter>
+    </CartContextProvider>
+  </FavContextProvider>
 )
