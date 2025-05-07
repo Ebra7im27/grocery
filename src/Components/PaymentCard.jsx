@@ -15,29 +15,31 @@ export default function PaymentCard() {
     return (
         <section className='paymentCard'>
             <div className="titlePaymentCard">
-                <h2>تفاصيل الشراء</h2>
+                <h2 className='mt-2'>تفاصيل الشراء</h2>
                 <div className='paymentCardContainer d-flex justify-content-between'>
                     <p>الدفع عن طريق</p>
                     <img src={LogoPayment} alt="paymentCard" />
                 </div>
-                <table className="table table-borderless text-center mt-3" style={{ "--bs-table-bg": "transparent" }}>
-                    <thead>
-                        <tr>
-                            <th scope="col">المنتج</th>
-                            <th scope="col">الكمية</th>
-                            <th scope="col">السعر</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {cart.map((item) => (
-                            <tr key={item.id}>
-                                <td>{item.product.name}</td>
-                                <td>{item.quantity}</td>
-                                <td>{(item.price * item.quantity)} ج</td>
+                <div className='tableContainer'>
+                    <table className="table table-borderless text-center mt-3" style={{ "--bs-table-bg": "transparent" }}>
+                        <thead>
+                            <tr>
+                                <th scope="col">المنتج</th>
+                                <th scope="col">الكمية</th>
+                                <th scope="col">السعر</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {cart.map((item) => (
+                                <tr key={item.id}>
+                                    <td>{item.product.name}</td>
+                                    <td>{item.quantity}</td>
+                                    <td>{(item.price * item.quantity)} ج</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
                 <div className='d-flex justify-content-center align-items-center'>
                     <hr style={{ width: "75%" }} />
                 </div>

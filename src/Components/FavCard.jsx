@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import '../Styles/FavCard.css';
 import { FavContext } from '../Context/FavContext';
+import { Link } from 'react-router-dom';
 
 export default function FavCard() {
     let { fav } = useContext(FavContext);
@@ -20,9 +21,11 @@ export default function FavCard() {
             <h2 className='title fw-bold'>المفضلة</h2>
             {
                 fav.map((item) => (
-                    <div key={item.id} className='Card d-flex justify-content-between align-items-center'>
+                    <div key={item.id} className='Card d-flex justify-content-between align-items-center flex-wrap'>
                         <div className="info d-flex gap-3">
-                            <img src={getImageUrl(item.image_path)} alt={item.name} />
+                            <Link to={"/product/" + item.id}>
+                                <img src={getImageUrl(item.image_path)} alt={item.name} />
+                            </Link>
                             <div className="description d-flex flex-column justify-content-center">
                                 <h3>{item.name}</h3>
                                 <span>190 جرام</span>

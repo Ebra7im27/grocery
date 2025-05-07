@@ -1,6 +1,5 @@
 import '../Styles/ProductCard.css';
 import React, { useContext, useState } from 'react'; // أضف useState
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../Context/CartContext';
 
@@ -43,27 +42,6 @@ export default function ProductCard({ props }) {
                     <span className="size-product">250مل</span>
                 </div>
                 <div className="price-quantity d-flex justify-content-between align-items-center">
-                    {/* <div className="quantity d-flex justify-content-center align-items-center">
-                        <motion.button
-                            onClick={handleIncrease}
-                            whileTap={{ scale: 1.1 }}
-                            className="plus d-flex justify-content-center align-items-center"
-                            type="button"
-                        >
-                            +
-                        </motion.button>
-                        <div className="number-quantity">
-                            <span style={{ color: "#000000" }}>{quantity}</span>
-                        </div>
-                        <motion.button
-                            onClick={() => updateProductCount(props.id, props.quantity - 1)}
-                            whileTap={{ scale: 1.1 }}
-                            className="minus d-flex justify-content-center align-items-center"
-                            type="button"
-                        >
-                            -
-                        </motion.button>
-                    </div> */}
                     <div className="price">
                         <span className="fw-bold">{props.price}ج</span>
                     </div>

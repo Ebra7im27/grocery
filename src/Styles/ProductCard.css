@@ -33,37 +33,6 @@
     font-weight: 400;
 }
 
-.price-quantity {
-    margin: 16px 7px 0px 0px;
-}
-
-.quantity {
-    width: 104px;
-    height: 50px;
-    border: 1px solid #E5E7EB;
-    border-radius: 10px;
-    gap: 13px;
-}
-
-.price-quantity .quantity .plus,
-.price-quantity .quantity .minus {
-    outline: none;
-    box-shadow: none;
-    font-family: 'Cairo', sans-serif;
-    padding: 0 0 2px 0px;
-    width: 20px;
-    height: 20px;
-    color: #FFFFFF;
-    background-color: #125A7A80;
-    border-radius: 50%;
-    /* cursor: pointer; */
-    border: none;
-}
-
-.price-quantity .quantity .plus {
-    background-color: #125A7A;
-}
-
 .price-quantity .price {
     margin-left: 20px;
 }

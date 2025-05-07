@@ -2,12 +2,14 @@ import React, { useContext, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CartContext } from '../Context/CartContext';
 import { FavContext } from '../Context/FavContext';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import '../Styles/SingleProductCard.css';
 import toast from "react-hot-toast";
 
-export default function SingleProductCard({ props }) {
+export default function SingleProductCard({ props, onFavoriteToggle }) {
     let { addProductToCart, updateProductCount, cart } = useContext(CartContext);
-    let { addProductToFav, fav } = useContext(FavContext);
+    let { isLoading } = useContext(FavContext);
+    const [isFavorite, setIsFavorite] = useState(props.is_favorite);
 
     const style = {
         fontFamily: "Cairo",
@@ -20,7 +22,6 @@ export default function SingleProductCard({ props }) {
         return status === "out_of_stock" ? "text-danger" : "text-success";
     };
     const isProductAvailable = props.stock_status !== "out_of_stock";
-    const isFavorite = fav.some(item => item.id === props.id);
 
     const cartItem = cart.find(item => item.product_id === props.id);
     const initialQuantity = cartItem ? cartItem.quantity : 1;
@@ -35,7 +36,7 @@ export default function SingleProductCard({ props }) {
     const baseURL = 'https://grocery.mlmcosmo.com';
 
     const getImageUrl = (imagePath) => {
-        if (!imagePath) return '/images/placeholder.jpg'; // مسار افتراضي حقيقي
+        if (!imagePath) return '/images/placeholder.jpg';
         if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
             return imagePath;
         }
@@ -68,7 +69,16 @@ export default function SingleProductCard({ props }) {
     };
 
     const handleFavClick = async () => {
-        await addProductToFav(props.id, props.image_path);
+        // Toggle local state immediately
+        setIsFavorite(!isFavorite);
+        
+        try {
+            await onFavoriteToggle(props.id, props.image_path);
+        } catch (error) {
+            // Revert local state if API call fails
+            setIsFavorite(!isFavorite);
+            console.error("Error toggling favorite:", error);
+        }
     };
 
     return (
@@ -104,14 +114,34 @@ export default function SingleProductCard({ props }) {
                             </motion.button>
                         </div>
 
-                        <button
-                            className='heartProduct'
-                            onClick={handleFavClick}
-                        >
-                            <span>
-                                <i className={`fs-3 fas fa-heart ${isFavorite ? 'text-danger' : ''}`}></i>
-                            </span>
-                        </button>
+                        <div className="heart-container">
+                            {isFavorite ? (
+                                <FaHeart
+                                    className="heart-icon"
+                                    onClick={handleFavClick}
+                                    style={{ 
+                                        color: '#125A7A',
+                                        
+                                        cursor: 'pointer',
+                                        width: '24px',
+                                        height: '24px',
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                />
+                            ) : (
+                                <FaRegHeart
+                                    className="heart-icon"
+                                    onClick={handleFavClick}
+                                    style={{ 
+                                        color: '#125A7A',
+                                        cursor: 'pointer',
+                                        width: '24px',
+                                        height: '24px',
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                />
+                            )}
+                        </div>
                     </div>
 
                     <hr style={{ color: "black" }} />

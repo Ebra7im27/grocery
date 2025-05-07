@@ -22,7 +22,7 @@ export default function CartContextProvider({ children }) {
                 quantity
             }, { headers });
 
-            console.log("Product added to cart:", data);
+            // console.log("Product added to cart:", data);
             await getCart();
             toast('تم إضافة المنتج إلى السلة ✅', {
                 icon: '🛒',
@@ -42,7 +42,7 @@ export default function CartContextProvider({ children }) {
 
         try {
             let { data } = await axios.get(`${baseURL}/user/cart`, { headers });
-            console.log("Cart data:", data);
+            // console.log("Cart data:", data);
             setCart(data.cart || []);
         } catch (error) {
             console.error("Error fetching cart:", error);
@@ -62,9 +62,9 @@ export default function CartContextProvider({ children }) {
                     { headers }
                 );
 
-                console.log("Quantity update response:", data);
+                // console.log("Quantity update response:", data);
                 await getCart(); // جلب بيانات السلة المحدثة
-                console.log("Cart after update:", cart);
+                // console.log("Cart after update:", cart);
                 toast('تم تحديث الكمية بنجاح ✅', {
                     icon: '🛒',
                     style: {
@@ -86,7 +86,7 @@ export default function CartContextProvider({ children }) {
         try {
             let { data } = await axios.delete(`${baseURL}/user/cart/${product_id}`, { headers });
 
-            console.log("Delete Product:", data);
+            // console.log("Delete Product:", data);
             await getCart()
             toast('تم حذف المنتج من السلة ❌', {
                 icon: '🗑️',

@@ -12,6 +12,8 @@ import SingleProduct from './Pages/SingleProduct';
 import Cart from './Pages/Cart';
 import PageNotFound from './Pages/PageNotFound';
 import Fav from './Pages/Fav';
+import AboutUs from './Pages/AboutUs';
+import ContactUs from './Pages/ContactUs';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
       <Route path='/product/:id' element={<SingleProduct />} />
       <Route path='/cart' element={<Cart />} />
       <Route path='/favorite' element={<Fav />} />
+      <Route path='/about' element={<AboutUs />} />
+      <Route path='/contact' element={<ContactUs />} />
       <Route path='*' element={<PageNotFound />} />
     </Routes>
   )

@@ -7,6 +7,7 @@ import NavBar from '../Components/NavBar';
 import { Toaster } from 'react-hot-toast';
 import FavCard from '../Components/FavCard';
 import { FavContext } from '../Context/FavContext';
+import Footer from '../Components/Footer';
 
 export default function Fav() {
     const isLoading = useLoader(2000);
@@ -47,10 +48,11 @@ export default function Fav() {
             ) : (
                 <section>
                     <NavBar />
-                    <div className="fav d-flex justify-content-center"style={{ marginTop: "100px" }}>
-                        <FavCard />
-                        {/* {fav.length > 0 ? <FavCard /> : <EmptyFavorites />} */}
+                    <div className="fav d-flex justify-content-center">
+                        {/* <FavCard /> */}
+                        {fav.length > 0 ? <FavCard /> : <EmptyFavorites />}
                     </div>
+                    <Footer />
                 </section>
             )}
             <Toaster position="top-center" reverseOrder={false} />

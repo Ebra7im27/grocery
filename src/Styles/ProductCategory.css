@@ -1,36 +1,88 @@
+/* تنسيق عام للـ container */
+.container.selectcat {
+    /* max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box; */
+}
+
+/* تنسيق الـ info (العنوان والخط) */
 section .selectcat .info {
     margin-top: 39px;
     gap: 20px;
 }
 
 section .selectcat .info .line {
-    border: 2px solid #125A7A;
+    border: 2px solid #125a7a;
     height: 49px;
 }
 
 section .selectcat .info .title {
     font-size: 32px;
     font-weight: 600;
-    color: #253D4E;
+    color: #253d4e;
 }
 
-
+/* تنسيق الـ categories */
 section .selectcat .categories {
-    width: 1408px;
-    height: 200px;
-    padding-top: 20px;
-    margin-top: 34px;
-    margin-bottom: 20px;
-    background-color: #FFFFFF;
+    width: 100%;
+    /* max-width: 1408px; */
+    height: auto;
+    /* خلينا الارتفاع يتكيف مع المحتوى */
+    padding: 20px 0;
+    margin: 34px auto 20px;
+    background-color: #ffffff;
     border-radius: 10px;
-    gap: 40px;
+    gap: 20px;
+    /* تقليل المسافة بين الكروت */
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* التوزيع في المنتصف */
 }
 
+/* تنسيق الـ ProductCategoryCard (افتراضي) */
+.product-category-card {
+    flex: 1 1 200px;
+    /* عرض مرن مع حد أدنى */
+    max-width: 250px;
+    /* حد أقصى للعرض */
+    box-sizing: border-box;
+    margin: 10px;
+    /* مسافة بين الكروت */
+}
 
+/* تصميم متجاوب */
 @media (max-width: 1440px) {
     section .selectcat .categories {
-        width: 100%;
-        padding: 0 15px; /* مسافة من الجنب لو حبيت */
-        box-sizing: border-box;
+        max-width: 100%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    section .selectcat .categories {
+        gap: 15px;
+    }
+
+    .product-category-card {
+        flex: 1 1 150px;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    section .selectcat .categories {
+        gap: 10px;
+    }
+
+    .product-category-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    section .selectcat .info .title {
+        font-size: 24px;
     }
 }

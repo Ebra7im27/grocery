@@ -16,7 +16,7 @@ export default function ProductCategoryCard({ props }) {
     };
 
     return (
-        <div>
+        <div className='mx-auto'>
             <Link
                 to={"category/" + props.id}
                 className='item text-center text-decoration-none'

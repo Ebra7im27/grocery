@@ -38,7 +38,7 @@ export default function CartCard() {
                             <img src={getImageUrl(item.product.image_path)} alt={item.product.name} />
                             <div className="description d-flex flex-column justify-content-center">
                                 <h3>{item.product.name}</h3>
-                                <span>190 جرام</span>
+                                <span>{item.price} ج</span>
                             </div>
                         </div>
                         <div className="upPlusMinus d-flex flex-column-reverse align-items-center gap-3">

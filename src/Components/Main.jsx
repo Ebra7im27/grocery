@@ -24,7 +24,7 @@ function Main() {
     <div>
       <div
         style={{
-          height: "75vh",
+          height: "100dvh",
           position: "relative",
         }}
       >

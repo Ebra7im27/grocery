@@ -10,43 +10,20 @@ import Swal from 'sweetalert2';
 import SingleProductCard from '../Components/SingleProductCard';
 import SimilarProducts from '../Components/SimilarProducts';
 import Marquee from 'react-fast-marquee';
+import { FavContext } from '../Context/FavContext';
+import Footer from '../Components/Footer';
 
 function SingleProduct() {
     const isLoading = useLoader(2000);
     const { id } = useParams();
-    const [product, setProduct] = useState([]);
+    const [product, setProduct] = useState({});
     const navigate = useNavigate();
     const [similarProducts, setSimilarProducts] = useState([]);
+    const { addProductToFav } = React.useContext(FavContext);
 
-    useEffect(() => {
+    const fetchProduct = async () => {
         const token = JSON.parse(localStorage.getItem('token'));
-
-        if (token) {
-            const headers = {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            };
-
-            // Fetch the current product
-            axios.get(`https://grocery.mlmcosmo.com/user/products/${id}`, { headers })
-                .then(response => {
-                    const data = response.data.product;
-                    const relatedProducts = response.data.related_products; // جلب المنتجات ذات الصلة
-                    setProduct(data);
-                    // تصفية المنتج الحالي من المنتجات ذات الصلة
-                    const filteredRelatedProducts = relatedProducts.filter(item => item.id !== data.id);
-                    setSimilarProducts(filteredRelatedProducts);
-                })
-                .catch(error => {
-                    console.error("Error fetching product:", error);
-                    Swal.fire({
-                        title: 'حدث خطأ!',
-                        text: error?.response?.data?.message || 'حدث خطأ أثناء جلب المنتجات ❌',
-                        icon: 'error',
-                        confirmButtonText: 'حسناً'
-                    });
-                });
-        } else {
+        if (!token) {
             navigate("/");
             Swal.fire({
                 title: 'غير مصرح!',
@@ -54,9 +31,43 @@ function SingleProduct() {
                 icon: 'warning',
                 confirmButtonText: 'حسناً'
             });
+            return;
         }
+
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        };
+
+        try {
+            const response = await axios.get(`https://grocery.mlmcosmo.com/user/products/${id}`, { headers });
+            const data = response.data.product;
+            const relatedProducts = response.data.related_products;
+            setProduct(data);
+            const filteredRelatedProducts = relatedProducts.filter(item => item.id !== data.id);
+            setSimilarProducts(filteredRelatedProducts);
+        } catch (error) {
+            console.error("Error fetching product:", error);
+            Swal.fire({
+                title: 'حدث خطأ!',
+                text: error?.response?.data?.message || 'حدث خطأ أثناء جلب المنتجات ❌',
+                icon: 'error',
+                confirmButtonText: 'حسناً'
+            });
+        }
+    };
+
+    useEffect(() => {
+        fetchProduct();
     }, [id, navigate]);
 
+    const handleFavoriteToggle = async (productId, imagePath) => {
+        try {
+            await addProductToFav(productId, imagePath);
+        } catch (error) {
+            console.error("Error toggling favorite:", error);
+        }
+    };
 
     return (
         <>
@@ -65,7 +76,11 @@ function SingleProduct() {
             ) : (
                 <section>
                     <NavBar />
-                    <SingleProductCard key={product.id} props={product} />
+                    <SingleProductCard 
+                        key={product.id} 
+                        props={product} 
+                        onFavoriteToggle={handleFavoriteToggle}
+                    />
                     <div>
                         <h2
                             className='fw-bold'
@@ -85,6 +100,7 @@ function SingleProduct() {
                         </Marquee>
                     </div>
                     <Toaster position="top-center" reverseOrder={false} />
+                    <Footer />
                 </section>
             )}
         </>

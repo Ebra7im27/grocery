@@ -8,6 +8,7 @@ import CartCard from '../Components/CartCard';
 import PaymentCard from '../Components/PaymentCard';
 import { CartContext } from '../Context/CartContext';
 import { Toaster } from 'react-hot-toast';
+import Footer from '../Components/Footer';
 
 export default function Cart() {
     const isLoading = useLoader(2000);
@@ -44,7 +45,7 @@ export default function Cart() {
 
     const ShowProducts = () => {
         return (
-            <div className='d-flex justify-content-between flex-wrap' style={{ marginTop: "100px" }}>
+            <div className='d-flex justify-content-between flex-wrap'>
                 <CartCard />
                 <PaymentCard />
             </div>
@@ -62,6 +63,7 @@ export default function Cart() {
                         <div className="cart ">
                             {cart.length > 0 ? <ShowProducts /> : <EmptyCart />}
                         </div>
+                        <Footer />
                     </section>
                 )
             }

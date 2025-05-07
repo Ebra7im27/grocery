@@ -1,11 +1,21 @@
-.paymentCard{
+.paymentCard {
     margin-top: 78px;
     width: 391px;
-    background-color:#125A7A80 ;
+    background-color: #125A7A80;
     border-radius: 20px;
+    height: 500px; /* ارتفاع ثابت للكارد */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* عشان ما يطلعش محتوى برا الكارد */
 }
 
-.paymentCard .titlePaymentCard h2{
+.paymentCard .titlePaymentCard {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* عشان ياخد الارتفاع الكامل للكارد */
+}
+
+.paymentCard .titlePaymentCard h2 {
     text-align: center;
     font-weight: 600;
     font-size: 20px;
@@ -13,61 +23,69 @@
     margin-top: 0;
 }
 
-.paymentCard .titlePaymentCard .paymentCardContainer{
+.paymentCard .titlePaymentCard .paymentCardContainer {
     padding: 0 17px;
 }
 
-.paymentCard .titlePaymentCard .paymentCardContainer p{
+.paymentCard .titlePaymentCard .paymentCardContainer p {
     font-weight: 500;
     font-size: 14px;
     color: #FEFEFE;
-    /* margin: 0 17px 0 0; */
     margin-top: 0;
 }
 
-.paymentCard .titlePaymentCard .paymentCardContainer img{
-    /* margin: 25px 17px 0 0; */
+.paymentCard .titlePaymentCard .paymentCardContainer img {
     margin-top: 9px;
     max-height: 17px;
     object-fit: contain;
 }
 
-.paymentCard .titlePaymentCard .table{
+.paymentCard .titlePaymentCard .tableContainer {
+    flex: 1; /* ياخد المساحة المتبقية */
+    overflow-y: auto; /* يضيف scroll للجدول لو زاد عدد المنتجات */
     margin-top: -25px;
     border-radius: 20px;
     padding: 10px 0;
 }
 
-.paymentCard .titlePaymentCard .table thead tr th{
-    font-weight: 600;
-    color: #FEFCFC;
+.paymentCard .titlePaymentCard .table {
+    border-radius: 20px;
+    width: 100%;
 }
 
-.paymentCard .titlePaymentCard .table tbody tr td{
+.paymentCard .titlePaymentCard .table thead tr th {
+    font-weight: 600;
+    color: #FEFCFC;
+    position: sticky; /* عشان الـ header يفضل ثابت أثناء الـ scroll */
+    top: 0;
+    background-color: #125A7A80; /* نفس لون الخلفية */
+}
+
+.paymentCard .titlePaymentCard .table tbody tr td {
     color: #FEFCFC;
     font-weight: 500;
     font-size: 14px;
     word-break: break-word;
-    max-width: 0px;  
+    max-width: 0px;
 }
 
-.paymentCard .titlePaymentCard .totalPrice{
+.paymentCard .titlePaymentCard .totalPrice {
     padding: 0 17px;
 }
 
-.paymentCard .titlePaymentCard .totalPrice div h5{
+.paymentCard .titlePaymentCard .totalPrice div h5 {
     color: #FEFCFC;
     font-weight: 400;
     font-size: 12px;
 }
 
-.paymentCard .titlePaymentCard .totalPrice div span{
+.paymentCard .titlePaymentCard .totalPrice div span {
     color: #FEFCFC;
     font-weight: 400;
     font-size: 16px;
 }
 
-.paymentCard .titlePaymentCard .btnPayment button{
+.paymentCard .titlePaymentCard .btnPayment button {
     width: 267px;
     height: 40px;
     border: 0;

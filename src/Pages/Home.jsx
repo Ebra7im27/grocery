@@ -2,6 +2,7 @@ import React from 'react'
 import Main from '../Components/Main'
 import ProductCategory from '../Components/ProductCategory'
 import Products from '../Components/Products'
+import Footer from '../Components/Footer'
 
 function Home() {
     return (
@@ -9,6 +10,7 @@ function Home() {
             <Main />
             <ProductCategory />
             <Products/>
+            <Footer/>
         </div>
     )
 }

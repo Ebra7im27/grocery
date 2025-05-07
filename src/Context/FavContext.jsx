@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import toast from "react-hot-toast";
 
 export const FavContext = createContext();
@@ -12,17 +12,24 @@ export default function FavContextProvider({ children }) {
         "Content-Type": "application/json"
     };
     const [fav, setFav] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Fetch favorites on mount
+    useEffect(() => {
+        getFav();
+    }, []);
 
     // Function to add product to favorites
     async function addProductToFav(product_id, image_path) {
+        setIsLoading(true);
         try {
             let { data } = await axios.post(`${baseURL}/user/put_favorites`, {
                 product_id, image_path
             }, { headers });
 
-            console.log("API response:", data);
-            await getFav();
+            // Update local state immediately based on the response
             if (data.message === "تم إضافة المنتج إلى المفضلة بنجاح") {
+                setFav(prevFav => [...prevFav, { id: product_id, image_path }]);
                 toast(`${data.message} ❤️`, {
                     style: {
                         borderRadius: '10px',
@@ -31,6 +38,7 @@ export default function FavContextProvider({ children }) {
                     },
                 });
             } else if (data.message === "تمت إزالة المنتج من المفضلة") {
+                setFav(prevFav => prevFav.filter(item => item.id !== product_id));
                 toast(`${data.message} 💔`, {
                     style: {
                         borderRadius: '10px',
@@ -39,16 +47,20 @@ export default function FavContextProvider({ children }) {
                     },
                 });
             }
+
+            return data.message;
         } catch (error) {
             console.error("Error adding product to fav:", error);
+            toast.error('حدث خطأ أثناء تحديث المفضلة');
+            throw error;
+        } finally {
+            setIsLoading(false);
         }
     }
 
     async function getFav() {
-
         try {
             let { data } = await axios.get(`${baseURL}/user/my_favorites`, { headers });
-            console.log("Favorites data:", data);
             setFav(data.favorites || []);
         } catch (error) {
             console.error("Error fetching favorite:", error);
@@ -57,7 +69,7 @@ export default function FavContextProvider({ children }) {
     }
 
     return (
-        <FavContext.Provider value={{ addProductToFav, getFav, fav, setFav }}>
+        <FavContext.Provider value={{ addProductToFav, getFav, fav, setFav, isLoading }}>
             {children}
         </FavContext.Provider>
     );

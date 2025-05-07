@@ -1,4 +1,36 @@
 .fav {
     width: 77%;
     margin: auto;
+    margin-top: 130px;
+}
+
+@media screen and (max-width: 768px) {
+    .fav{
+        margin-top: -70px;
+        width: 85%;
+        margin-left: 100px !important;
+    }
+    
+}
+
+/* @media (max-width: 768px) {
+    .favCard{
+        width: 90%;
+    }
+    .favCard .Card {
+        width: 120%;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .favCard .Card .info {
+        width: 100%;
+    }
+} */
+
+@media (max-width: 368px) {
+    .fav{
+        width: 85%;
+        margin-left: 100px !important;
+    }
 }

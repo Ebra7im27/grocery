@@ -1,17 +1,20 @@
 import '../Styles/NavBar.css';
 import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../Context/CartContext';
 import logoGrocery from "../assets/logoGrocery.png";
 import searchIcon from "../assets/li_search.png";
-import userIcon from "../assets/user.png";
 import bagIcon from "../assets/bag.png";
 import heartIcon from "../assets/heart-add.png";
 import { FavContext } from '../Context/FavContext';
+import { CgLogOut } from "react-icons/cg";
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function NavBar() {
     let { cart, getCart } = useContext(CartContext);
     let { fav, getFav } = useContext(FavContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getCart();
@@ -20,11 +23,57 @@ function NavBar() {
         getFav();
     }, []);
 
+    const token = JSON.parse(localStorage.getItem('token'));
+    const headers = {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+    }
+    const handleLogOut = () => {
+        if (token) {
+            Swal.fire({
+                title: 'هل أنت متأكد؟',
+                text: 'هل تريد تسجيل الخروج؟',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'نعم، تسجيل الخروج',
+                cancelButtonText: 'إلغاء',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios
+                        .post('https://grocery.mlmcosmo.com/user/logout', {}, { headers })
+                        .then((response) => {
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('user');
+                            Swal.fire(
+                                'تم تسجيل الخروج!',
+                                'لقد تم تسجيل خروجك بنجاح.',
+                                'success'
+                            ).then(() => {
+                                navigate('/');
+                            });
+                        })
+                        .catch((error) => {
+                            console.error('Error logging out:', error);
+                            Swal.fire(
+                                'خطأ!',
+                                'حدث خطأ أثناء تسجيل الخروج.',
+                                'error'
+                            );
+                        });
+                }
+            });
+        } else {
+            Swal.fire('خطأ!', 'لا يوجد توكن لتسجيل الخروج.', 'error');
+        }
+    };
+
     return (
         <nav
             className="navbar navbar-expand-lg container"
             style={{
-                marginTop:"28px",
+                marginTop: "28px",
                 minHeight: "76px",
                 backgroundColor: "#FFFFFF",
                 position: "absolute",
@@ -55,76 +104,25 @@ function NavBar() {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarScroll">
-                    <div className="subnav-select">
-                        <select
-                            name="language"
-                            id="language-select"
-                            className="subnav-language"
-                            style={{
-                                marginRight: "29px",
-                                border: "none",
-                                outline: "none",
-                                fontSize: "12px",
-                                fontWeight: "400",
-                                background: "transparent",
-                                textAlign: "left",
-                                direction: "rtl"
-                            }}
-                        >
-                            <option value="ar">العربية</option>
-                            <option value="en">الإنجليزية</option>
-                            <option value="fr">الفرنسية</option>
-                        </select>
-                    </div>
-
-                    <div className="d-flex flex-grow-1 justify-content-center position-relative">
-                        <input
-                            type="text"
-                            placeholder="ابحث عن منتجك...."
-                            aria-label="Search"
-                            style={{
-                                border: "none",
-                                backgroundColor: "#F3F3F3",
-                                width: "100%",
-                                maxWidth: "455px",
-                                height: "42px",
-                                borderRadius: "10px",
-                                padding: "0 40px 0 20px",
-                            }}
-                        />
-                        <div>
+                    <div className="nav-content flex-lg-row flex-column gap-1 gap-lg-5 mb-4 mb-lg-0">
+                        <div className="search-container">
+                            <input
+                                type="text"
+                                placeholder="ابحث عن منتجك...."
+                                aria-label="Search"
+                                className="search-input"
+                            />
                             <img
-                                className='search-icon position-absolute'
+                                className='search-icon'
                                 src={searchIcon}
                                 alt="icon in searchBar"
                             />
                         </div>
-                    </div>
-
-                    <div className="infoUser" style={{ display: "flex", alignItems: "center" }}>
-                        <div className='photoUser'>
-                            <img src={userIcon} alt="user" />
+                        <div className="nav-links ms-lg-4">
+                            <Link to="/home">الرئيسية</Link>
+                            <Link to="/about">عنا</Link>
+                            <Link to="/contact">تواصل معنا</Link>
                         </div>
-                        <select
-                            name="language"
-                            id="language-select"
-                            className="subnav-language d-flex align-items-center"
-                            style={{
-                                border: "none",
-                                outline: "none",
-                                background: "transparent",
-                                textAlign: "left",
-                                direction: "rtl",
-                                height: "fit-content",
-                                fontSize: "16px",
-                                fontWeight: "500",
-                                color: "#253D4E"
-                            }}
-                        >
-                            <option value="ar">محمد علي</option>
-                            <option value="en">19 Years</option>
-                            <option value="fr">KFS</option>
-                        </select>
                     </div>
 
                     <div
@@ -132,23 +130,33 @@ function NavBar() {
                             marginRight: "46px",
                             gap: "17px"
                         }}
-                        className="card-fav d-flex"
+                        className="card-fav d-flex mt-3"
                     >
                         <div>
                             <Link to='/cart'>
-                                <img src={bagIcon} alt="items in bag" width={24} />
+                                <img src={bagIcon} alt="items in bag" width={26} />
+                                <div className='bag'>
+                                    <span className='numOfItems'>{cart.length}</span>
+                                </div>
                             </Link>
-                            <div className='bag'>
-                                <span className='numOfItems'>{cart.length}</span>
-                            </div>
                         </div>
                         <div>
                             <Link to='/favorite'>
-                                <img src={heartIcon} alt="Favorite items" />
+                                <img src={heartIcon} alt="Favorite items" width={26} />
+                                <div className='heart'>
+                                    <span className='numOfItems'>{fav.length}</span>
+                                </div>
                             </Link>
-                            <div className='heart'>
-                                <span className='numOfItems'>{fav.length}</span>
-                            </div>
+                        </div>
+                        <div
+                            className="logout"
+                            style={{ cursor: 'pointer'}}
+                            onClick={handleLogOut}
+                        >
+                            <CgLogOut
+                                color="red"
+                                size={30}
+                            />
                         </div>
                     </div>
                 </div>

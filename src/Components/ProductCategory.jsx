@@ -20,7 +20,7 @@ function ProductCategory() {
             axios.get(`https://grocery.mlmcosmo.com/user/categories/${user.id}`, { headers })
                 .then((response) => {
                     setProductCategory(response.data.message); // Set the products to the state
-                    console.log(response.data.message); // Log the products to the console
+                    // console.log(response.data.message); // Log the products to the console
                 })
                 .catch((error) => {
                     Swal.fire({
@@ -49,7 +49,7 @@ function ProductCategory() {
                     <div className='title'>فئه منتجاتنا</div>
                 </div>
 
-                <div className='categories d-flex flex-wrap justify-content-evenly align-items-center'>
+                <div className='categories d-flex flex-wrap justify-content-between align-items-center'>
                     {
                         productCategory.map((item) => (
                             <ProductCategoryCard key={item.id} props={item} />

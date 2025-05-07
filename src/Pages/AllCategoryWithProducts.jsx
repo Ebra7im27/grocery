@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
 import Swal from 'sweetalert2';
 import NavBar from '../Components/NavBar';
+import Footer from '../Components/Footer';
 
 function AllCategoryWithProducts() {
     const [allCate, setAllCat] = useState([]);
@@ -60,7 +61,7 @@ function AllCategoryWithProducts() {
                 <section>
                     {/* <NavBar/> */}
                     <NavBar />
-                    <div className="container" style={{ marginTop: "100px" }}>
+                    <div className="container up">
                         <h2 className="title fw-bold my-4">منتجات {categoryName}</h2>
                         <div className="d-flex flex-wrap justify-content-center justify-content-md-between align-items-end">
                             {
@@ -70,6 +71,7 @@ function AllCategoryWithProducts() {
                             }
                         </div>
                     </div>
+                    <Footer />
                 </section>
             )}
         </>
